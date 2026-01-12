@@ -7,12 +7,21 @@ set -o xtrace -o nounset -o pipefail -o errexit
 sbt 'set baseVersionSuffix := ""' dist/mkPack makePom
 
 mkdir -p ${SRC_DIR}/target/generated-resources/licenses
+
+midver=$(echo $PKG_VERSION | sed 's/[[:digit:]]\+\.\([[:digit:]]\+\)\.[[:digit:]]\+/\1/')
 filename=scala-dist-${PKG_VERSION}.pom
-pom_file=${SRC_DIR}/target/scala-dist/${filename}
+if [ ${midver+x} == "12" ]; then
+    distDir="scala-dist"
+else
+    distDir="scalaDist"
+fi
+pom_file="${SRC_DIR}/target/${distDir}/${filename}"
 
 pushd $(dirname ${pom_file})
 mv ${filename} pom.xml
-sed -i 's/scala-library-all/scala-library/' pom.xml
+if [ ${midver+x} == "12" ]; then
+    sed -i 's/scala-library-all/scala-library/' pom.xml
+fi
 mvn license:download-licenses -Dgoal=download-licenses
 cp ./target/generated-resources/licenses/* ${SRC_DIR}/target/generated-resources/licenses
 popd
