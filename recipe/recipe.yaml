@@ -37,6 +37,9 @@ about:
   summary: Scala 2 compiler and standard library.
   homepage: https://scala-lang.org
   repository: https://github.com/scala/scala
+  description: |-
+    A programming language that scales with you: from small scripts to large
+    multiplatform applications.
 
 extra:
   recipe-maintainers:
