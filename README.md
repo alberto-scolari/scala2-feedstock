@@ -11,6 +11,9 @@ Summary: Scala 2 compiler and standard library.
 
 Development: https://github.com/scala/scala
 
+A programming language that scales with you: from small scripts to large
+multiplatform applications.
+
 Current build status
 ====================
 
